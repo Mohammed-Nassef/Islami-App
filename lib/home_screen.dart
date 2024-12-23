@@ -15,6 +15,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  int current = 0;
   List<Widget> tabs = [
     Qurantabs(),
     hadethtabs(),
@@ -22,12 +23,33 @@ class _HomeScreenState extends State<HomeScreen> {
     Radiotab(),
     Timetabs()
   ];
-  int current = 0;
+  List<String> backgroundImageTab = [
+    "background_quran",
+    "background_hadeth",
+    "background_sebha",
+    "background_radio",
+    "background_time"
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: tabs[current],
+      body: Container(
+        height: double.infinity,
+        width: double.infinity,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                fit: BoxFit.fill,
+                image: AssetImage(
+                    "assets/images/${backgroundImageTab[current]}.png"))),
+        child: Column(children: [
+          Image.asset(
+            "assets/images/logo.png",
+            height: MediaQuery.sizeOf(context).height * 0.18,
+          ),
+          Expanded(child: tabs[current]),
+        ]),
+      ),
       bottomNavigationBar: BottomNavigationBar(
           currentIndex: current,
           onTap: (value) {
